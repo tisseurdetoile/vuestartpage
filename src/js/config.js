@@ -41,7 +41,6 @@ var config = {
     }
     return null
   },
-
   fetch () {
     console.log('fetch')
     let read = localStorage.getItem('CONFIG')
@@ -57,6 +56,13 @@ var config = {
   save () {
     console.log('writeConfig')
     localStorage.setItem('CONFIG', JSON.stringify(config.current))
+  },
+  addToTail () {
+    config.current.shrCut.push({shrt: '', name: 'name', url: 'ne pas oublier ::%s::'})
+  },
+  removeItem (index) {
+    // this.current.$remove(item).
+    config.current.shrCut.splice(index, 1)
   },
   getDefault () {
     return config.defconf

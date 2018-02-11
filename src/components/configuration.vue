@@ -19,10 +19,14 @@
     </p>
 
     <p v-for="(item, index) in currconfig.shrCut" v-bind:index="index" v-bind:key="item.shrt">
-      {{ item.shrt }} - {{ item.name }} - {{ item.url }}
+      <input type="text" size="2" max="2" v-model="item.shrt">
+      <input type="text" size="10" max="10" v-model="item.name">
+      <input type="text" size="100" v-model="item.url">
+      <button v-on:click="removeElement(index)">X</button>
     </p>
 
     <button v-on:click="save">Sauvegarder</button>
+    <button v-on:click="newItem">Nouveaux</button>
     <p><button class="btn btn-lg btn-primary" v-on:click="showjson = !showjson">JSON</button></p>
     <p v-if="showjson" class="code">
     <pre>data: {{currconfig}}</pre>
@@ -44,6 +48,12 @@ export default {
   methods: {
     save: function () {
       Configuration.save()
+    },
+    newItem: function () {
+      Configuration.addToTail()
+    },
+    removeElement: function (index) {
+      Configuration.removeItem(index)
     }
   }
 }
