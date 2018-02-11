@@ -1,15 +1,18 @@
 <template>
-  <h1>TEST</h1>
+  <h1>Redirection</h1>
 </template>
 
 <script>
 import Redirect from '../js/redirect.js'
 export default {
-  name: 'HelloWorld',
+  name: 'Redirect',
   props: ['querystr', 'shrtcut'],
   created () {
     let url = Redirect.getUrl(this.querystr, this.shrtcut)
-    console.log(url)
+    if (url != null) {
+      console.log(url)
+      // window.location.href = url.
+    }
   },
   data () {
     return {

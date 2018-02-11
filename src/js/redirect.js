@@ -1,4 +1,5 @@
 import Config from './config.js'
+import stats from './searchstat.js'
 
 var Redirect = {
   /**
@@ -17,7 +18,8 @@ var Redirect = {
       console.log(readConfig)
       let url = readConfig.url.replace('::%s::', query)
       if (url != null) {
-        window.location.href = url
+        stats.putStat(query, readConfig, url)
+        return url
       }
     }
 
