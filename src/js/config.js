@@ -53,17 +53,49 @@ var config = {
     }
     return config.current
   },
+  /**
+   * Sauvegarde de la configuration dans le loca storage.
+   */
   save () {
-    console.log('writeConfig')
     localStorage.setItem('CONFIG', JSON.stringify(config.current))
   },
+  /**
+   * Ajoute un element de configuration.
+   */
   addToTail () {
     config.current.shrCut.push({shrt: '', name: 'name', url: 'ne pas oublier ::%s::'})
   },
+  /**
+   * retire un élément de la configuration.
+   * @param index
+   */
   removeItem (index) {
-    // this.current.$remove(item).
     config.current.shrCut.splice(index, 1)
   },
+  /**
+   * Export les données sous forme de fichier.
+   */
+  exportData () {
+    const fileName = 'export.json'
+    let element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(config.current)))
+    element.setAttribute('download', fileName)
+    element.style.display = 'none'
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+  },
+  /**
+   * Importe le flux json dans la configuration courante.
+   * @param txtJson
+   */
+  importData (txtJson) {
+    localStorage.setItem('CONFIG', txtJson)
+  },
+  /**
+   * retourne la configuration par defaut
+   * @returns {{shrCut: *[], debug: boolean, stat: boolean, noredirect: boolean}|config.defconf|{shrCut, debug, stat, noredirect}}
+   */
   getDefault () {
     return config.defconf
   }

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Home from '@/components/home'
 import redirectMe from '@/components/redirectMe'
 import configuration from '@/components/configuration'
 import contact from '@/components/contact'
@@ -12,7 +12,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: HelloWorld
+      component: Home
     },
     {
       path: '/redirectme',

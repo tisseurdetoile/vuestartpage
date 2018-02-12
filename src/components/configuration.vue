@@ -31,7 +31,8 @@
     <p v-if="showjson" class="code">
     <pre>data: {{currconfig}}</pre>
     </p>
-
+    <button v-on:click="exportData">Exporter</button>
+    <input type="file" @change="importData($event)">
   </form>
 </template>
 <script>
@@ -54,6 +55,14 @@ export default {
     },
     removeElement: function (index) {
       Configuration.removeItem(index)
+    },
+    exportData: function () {
+      Configuration.exportData()
+    },
+    importData: function (event) {
+      var fr = new FileReader()
+      fr.onload = function (e) { Configuration.importData(e.target.result.toString()) }
+      fr.readAsText(event.target.files[0])
     }
   }
 }
