@@ -62,6 +62,40 @@ var stats = {
       }
     }
     return ret
+  },
+  /**
+   * retourne toutes les recherche depuis un timestamp.
+   * @param ts timestamp
+   */
+  fromTS (ts) {
+    let idx = this.listIdx().sort(this.sortIdx)
+    var ret = []
+    let size = idx.length
+
+    while (size--) {
+      let readIdx = idx[size]
+      let readData = JSON.parse(localStorage.getItem(readIdx))
+      let datasize = readData.length
+
+      while (datasize--) {
+        let readSrch = readData[datasize]
+
+        if (readSrch.t >= ts) {
+          ret.push(readSrch)
+        } else {
+          return ret
+        }
+      }
+    }
+    return ret
+  },
+  /**
+   * retourne les recherche des dernier x jours.
+   */
+  lastNDays (num = 15) {
+    let current = new Date().getTime()
+    var start = current - (24 * 3600 * 1000 * num)
+    return this.fromTS(start)
   }
 }
 export default stats
