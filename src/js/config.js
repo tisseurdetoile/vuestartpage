@@ -31,10 +31,10 @@ var config = {
    * @returns {*} la configuration ou null.
    */
   getShrCut (shrt) {
-    let len = config.current.shrCut.length
+    let len = this.current.shrCut.length
 
     while (len--) {
-      let readData = config.current.shrCut[len]
+      let readData = this.current.shrCut[len]
       if (readData.shrt === shrt) {
         return readData
       }
@@ -46,31 +46,31 @@ var config = {
     let read = localStorage.getItem('CONFIG')
     if (read == null) {
       console.log('no save')
-      config.current = config.defconf
+      this.current = this.defconf
     } else {
       console.log('from save')
-      config.current = JSON.parse(read)
+      this.current = JSON.parse(read)
     }
-    return config.current
+    return this.current
   },
   /**
    * Sauvegarde de la configuration dans le loca storage.
    */
   save () {
-    localStorage.setItem('CONFIG', JSON.stringify(config.current))
+    localStorage.setItem('CONFIG', JSON.stringify(this.current))
   },
   /**
    * Ajoute un element de configuration.
    */
   addToTail () {
-    config.current.shrCut.push({shrt: '', name: 'name', url: 'ne pas oublier ::%s::'})
+    this.current.shrCut.push({shrt: '', name: 'name', url: 'ne pas oublier ::%s::'})
   },
   /**
    * retire un élément de la configuration.
    * @param index
    */
   removeItem (index) {
-    config.current.shrCut.splice(index, 1)
+    this.current.shrCut.splice(index, 1)
   },
   /**
    * Export les données sous forme de fichier.
@@ -78,7 +78,7 @@ var config = {
   exportData () {
     const fileName = 'export.json'
     let element = document.createElement('a')
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(config.current)))
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.current)))
     element.setAttribute('download', fileName)
     element.style.display = 'none'
     document.body.appendChild(element)
@@ -97,7 +97,7 @@ var config = {
    * @returns {{shrCut: *[], debug: boolean, stat: boolean, noredirect: boolean}|config.defconf|{shrCut, debug, stat, noredirect}}
    */
   getDefault () {
-    return config.defconf
+    return this.defconf
   }
 }
 export default config
