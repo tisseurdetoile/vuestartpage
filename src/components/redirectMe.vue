@@ -11,7 +11,7 @@ export default {
     let url = Redirect.getUrl(this.querystr, this.shrtcut)
     if (url != null) {
       console.log(url)
-      // window.location.href = url.
+      window.location.href = url
     }
   },
   data () {
