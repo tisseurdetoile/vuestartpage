@@ -41,6 +41,18 @@ var config = {
     }
     return null
   },
+  /**
+   * retourne la configuration associé au raccourcis.
+   * @param shrt le raccourcis.
+   * @returns {*} la configuration ou null.
+   */
+  getFirstShrCut () {
+    if (this.current.shrCut.length > 0) {
+      return this.current.shrCut[0]
+    }
+
+    return null
+  },
   fetch () {
     console.log('fetch')
     let read = localStorage.getItem('CONFIG')

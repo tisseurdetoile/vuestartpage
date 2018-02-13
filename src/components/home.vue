@@ -2,8 +2,8 @@
   <div class="home">
     <br />
     <div class="search">
-      <form>
-        <input type="text" size="100" id="search"  placeholder="Que rechercher ... que faire">
+      <form @submit.prevent="searchMe">
+        <input type="text" size="100" id="search" v-model="searchStr" placeholder="Que rechercher ... que faire">
       </form>
     </div>
     <br />
@@ -19,12 +19,25 @@
 
 <script>
 import stats from '../js/stats.js'
+import Config from '../js/config.js'
+import Redirect from '../js/redirect.js'
+
 export default {
   name: 'Home',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      lastTen: stats.last(10)
+      lastTen: stats.last(10),
+      searchStr: ''
+    }
+  },
+  methods: {
+    searchMe: function () {
+      if (this.searchStr.length >= 0) {
+        let readShrt = Config.getFirstShrCut()
+        let url = Redirect.getUrl(this.searchStr, readShrt.shrt)
+        window.location.href = url
+      }
     }
   }
 }
@@ -49,7 +62,6 @@ a {
 #lastsrch a {
   text-decoration: none;
 }
-
 
 #lastsrch span.tag {
   padding: 1px 3px;
