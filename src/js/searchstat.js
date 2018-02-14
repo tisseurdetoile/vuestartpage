@@ -16,7 +16,7 @@ var SearchStats = {
       var txt = arr[ni]
 
       if (txt != null && txt.length > 2) {
-        res.push(SearchStats.normalize(txt))
+        res.push(this.normalize(txt))
       }
     }
 
@@ -45,13 +45,13 @@ var SearchStats = {
       readstat = JSON.parse(localStorage[index])
     }
 
-    let tags = SearchStats.getKeyword(SearchStats.normalize(query))
+    let tags = this.getKeyword(this.normalize(query))
 
     let data = {}
     data.t = Date.now()
     data.s = confshrt.shrt
-    data.p = confshrt.name
-    data.n = tags
+    data.p = tags
+    data.n = confshrt.name
     data.u = url
 
     readstat.push(data)
