@@ -23,6 +23,7 @@
       <input type="text" size="10" max="10" v-model="item.name">
       <input type="text" size="100" v-model="item.url">
       <button v-on:click="removeElement(index)">X</button>
+      <router-link :to="{ path: 'redirectMe', query: { s: item.shrt, q: '%s' }}">📌</router-link>
     </p>
 
     <button v-on:click="save">Sauvegarder</button>
@@ -40,6 +41,9 @@ import Configuration from '../js/config.js'
 
 export default {
   name: 'configuration',
+  created () {
+    this.$parent.changeActive('configuration')
+  },
   data: function () {
     return {
       showjson: false,

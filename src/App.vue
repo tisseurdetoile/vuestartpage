@@ -5,12 +5,14 @@
         <a href="#" class="Week">{{ week }}</a>
         <a href="#" class="home" v-on:click="makeActive('home', '/')">Home</a>
         <a href="#" class="configuration" v-on:click="makeActive('configuration', 'config')">Config</a>
-        <a href="#" class="stats" v-on:click="makeActive('stats', '')">stats</a>
+        <a href="#" class="stats" v-on:click="makeActive('stats', '/')">stats</a>
         <a href="#" class="contact" v-on:click="makeActive('contact', 'contact')">Contact</a>
       </nav>
       <p>You chose <b>{{ active }}</b></p>
     </div>
-    <router-view/>
+    <div id="content">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -33,6 +35,7 @@ export default {
       this.$router.push(page)
     },
     changeActive: function (item) {
+      console.log('>>' + item)
       this.active = item
     }
   }
@@ -59,6 +62,11 @@ export default {
     margin-top: 0px;
   }
 
+  #content {
+    padding-left: 15%;
+    padding-right: 15%;
+    text-align: center;
+  }
   * {
     margin: 0;
     padding: 0;
@@ -120,8 +128,8 @@ export default {
   }
 
   nav.home .home,
-  nav.projects .projects,
-  nav.services .services,
+  nav.configuration .configuration,
+  nav.stats .stats,
   nav.contact .contact {
     background-color: #e35885;
   }

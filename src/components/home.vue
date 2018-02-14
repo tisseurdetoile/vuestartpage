@@ -7,6 +7,7 @@
       </form>
     </div>
     <br />
+
     <ul id="lastsrch">
       <li v-for="(item, index) in lastTen" v-bind:index="index" v-bind:key="item.t">
         {{ item.n }} (
