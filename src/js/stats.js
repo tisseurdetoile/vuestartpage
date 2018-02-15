@@ -90,12 +90,84 @@ var stats = {
     return ret
   },
   /**
-   * retourne les recherche des dernier x jours.
+   * retourne les recherche des dernieres jours.
+   * @param num nombre de jours.
+   * @returns {*} un tableau contenant les recherches.
    */
   lastNDays (num = 15) {
     let current = new Date().getTime()
     var start = current - (24 * 3600 * 1000 * num)
     return this.fromTS(start)
+  },
+  /**
+   * retourne les recherche des dernieres semaines.
+   * @param num nombre de semaine.
+   * @returns {*} un tableau contenant les recherches.
+   */
+  getLastWeeks (num = 5) {
+    let devMonday = [6, 0, 1, 2, 3, 4, 5]
+    let sureDays = (num - 1) * 7
+    let days = sureDays + devMonday[new Date().getUTCDay() + 1] + 1
+    return (this.lastNDays(days))
+  },
+  extractTag (arr) {
+    let ret = {}
+    var tagsData = {}
+    var tagsData2 = {}
+    var tagsData3 = {}
+    var shrData = {}
+    var scoreTags = []
+    var tags = []
+
+    let ln = arr.length
+    while (ln--) {
+      let read = arr[ln]
+
+      // traite les recherche par shrCut
+      shrData[read.s] = shrData[read.s] ? shrData[read.s] + 1 : 1
+
+      // traite les tags.
+      let lt = read.p.length
+      while (lt--) {
+        let tag = read.p[lt].toUpperCase()
+        tagsData[tag] = tagsData[tag] ? tagsData[tag] + 1 : 1
+      }
+    }
+    // ff.
+    for (var property in tagsData) {
+      if (tagsData.hasOwnProperty(property)) {
+        if (tagsData[property] > 1) {
+          tagsData2[property] = tagsData[property]
+          if (tagsData3[tagsData[property]] === undefined) {
+            tagsData3[tagsData[property]] = []
+          }
+          tagsData3[tagsData[property]].push(property)
+        }
+      }
+    }
+    // scoring.
+    for (var property1 in tagsData3) {
+      if (tagsData3.hasOwnProperty(property1)) {
+        scoreTags.push(parseInt(property1))
+      }
+    }
+
+    let lst = scoreTags.length
+
+    while (lst--) {
+      let readScore = scoreTags[lst]
+      tags.push(tagsData3[readScore])
+    }
+
+    // results.
+    ret['tagsData'] = tagsData
+    ret['tagsData2'] = tagsData2
+    ret['tagsData3'] = tagsData3
+    ret['shrData'] = shrData
+    ret['scoreTags'] = scoreTags
+    ret['tags'] = tags  
+
+    return ret
   }
 }
 export default stats

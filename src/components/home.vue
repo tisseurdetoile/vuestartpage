@@ -9,7 +9,7 @@
     <br />
 
     <ul id="lastsrch">
-      <li v-for="(item, index) in lastTen" v-bind:index="index" v-bind:key="item.t">
+      <li v-for="(item, index) in lastWeeks.slice(0,10)" v-bind:index="index" v-bind:key="item.t">
         {{ item.n }} (
         <span class="tag" v-for="tag in item.p" v-bind:key="tag">{{ tag }}</span> )
         <a v-if="item.u !== undefined" :href="item.u">⬈</a>
@@ -28,8 +28,9 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      lastTen: stats.last(10),
-      searchStr: ''
+      lastWeeks: stats.getLastWeeks(),
+      searchStr: '',
+      tags: stats.extractTag(stats.getLastWeeks())
     }
   },
   methods: {
