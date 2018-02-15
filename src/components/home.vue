@@ -7,35 +7,47 @@
       </form>
     </div>
     <br />
-
-    <ul id="lastsrch">
-      <li v-for="(item, index) in lastWeeks.slice(0,10)" v-bind:index="index" v-bind:key="item.t">
-        <span class="engine">{{ item.n }}</span>
-        <span class="tag" v-for="tag in item.p" v-bind:key="tag">{{ tag }}</span>
-        <a v-if="item.u !== undefined" :href="item.u">⬈</a>
-      </li>
-    </ul>
-    <div id="pieShrt">
-      <template>
-        <peity :type="'pie'" :options="getoptionPieShrt" :data="pieShrt"></peity>
-      </template>
-      <ul id="legend">
-        <li v-for="(item, index)  in getPieLegeng" v-bind:style="{ color: item.color }" v-bind:index="index" v-bind:key="index">
-          {{ item.name }}
+    <div id="pleft">
+      <ul id="lastsrch">
+        <h2>Dernières recherche</h2>
+        <li v-for="(item, index) in lastWeeks.slice(0,10)" v-bind:index="index" v-bind:key="item.t">
+          <a v-if="item.u !== undefined" :href="item.u"><span class="engine">{{ item.n }}</span></a>
+          <span class="tag" v-on:click="addTerms(tag)" v-for="tag in item.p" v-bind:key="tag">{{ tag }}</span>
         </li>
       </ul>
     </div>
-    <div class="tagcloud">
-    <ul>
-      <li v-for="(item, index) in getTagCloud.slice(0,15)" v-bind:index="index" v-bind:key="index">
-        <a href="#">{{ item.name }}<span>{{ item.score }}</span></a>
-      </li>
-    </ul>
+    <div id="pright">
+      <div class="tagcloud">
+        <h2>TagCloud</h2>
+        <ul>
+          <li v-for="(item, index) in getTagCloud.slice(0,15)" v-bind:index="index" v-bind:key="index">
+            <a href="#" v-on:click="addTerms(item.name)">{{ item.name }}<span>{{ item.score }}</span></a>
+          </li>
+        </ul>
+      </div>
+      <div id="graphs">
+        <h2>Graphs</h2>
+        <div id="bar">
+          <template>
+            <peity :type="'bar'" :options="{'width': 150, 'height':150}" :data="getHistUsage"></peity>
+          </template>
+        </div>
+        <div id="pie">
+          <div id="pieShrt">
+            <template>
+              <peity :type="'pie'" :options="getoptionPieShrt" :data="pieShrt"></peity>
+            </template>
+          </div>
+          <div id="pielegend">
+            <ul id="legend">
+              <li v-for="(item, index)  in getPieLegeng" v-bind:style="{ color: item.color }" v-bind:index="index" v-bind:key="index">
+                {{ item.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <template>
-      <peity :type="'bar'" :options="{'width': 150, 'height':150}" :data="getHistUsage"></peity>
-    </template>
-
   </div>
 </template>
 <script>
@@ -64,9 +76,9 @@ export default {
     getoptionPieShrt () {
       let ret = {}
       ret['fill'] = this.tags.pieChartShrt.colors.flat
-      ret['width'] = 100
-      ret['height'] = 100
-      ret['innerRadius'] = 30
+      ret['width'] = 150
+      ret['height'] = 150
+      ret['innerRadius'] = 50
       ret['radius'] = 10
       return ret
     },
@@ -87,6 +99,9 @@ export default {
         let url = Redirect.getUrl(this.searchStr, readShrt.shrt)
         window.location.href = url
       }
+    },
+    addTerms: function (term) {
+      this.searchStr += ' ' + term
     }
   }
 }
@@ -94,6 +109,33 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#pleft {
+  text-align: left;
+  float: left;
+  with:35%;
+  min-width: 35%;
+}
+
+#pright {
+  float: left;
+  text-align: left;
+  width:45%;
+  min-width: 45%;
+  margin-left: 5%;
+}
+
+#pie {
+  margin-left:20px;
+}
+
+#pieShrt {
+  float: left;
+  width: 180px;
+}
+
+#bar {
+  float: left;
+}
 h1, h2 {
   font-weight: normal;
 }
@@ -113,7 +155,6 @@ a {
   font-weight: bold;
   font-size: 25px;
 }
-
 
 .box {
   width: 8px;
@@ -148,16 +189,17 @@ a {
   position: relative;
   display: inline-block;
   max-width: 100px;
-  height: 22px;
-  line-height: 22px;
+  height: 20px;
+  line-height: 20px;
+  margin-left: 5px;
   padding: 0 1em 0 1em;
   background-color: #fff;
-  border: 1px solid #aaa;
-  border-radius: 3px;
+  border: 1px solid #389dc1;
+  border-radius: 2px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: #333;
+  color: #389dc1;
   font-weight: bold;
   font-size: 10px;
   text-decoration: none;

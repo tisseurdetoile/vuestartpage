@@ -7,7 +7,6 @@
         <a href="#" class="configuration" v-on:click="makeActive('configuration', 'config')">Config</a>
         <a href="#" class="contact" v-on:click="makeActive('contact', 'contact')">Contact</a>
       </nav>
-      <p>You chose <b>{{ active }}</b></p>
     </div>
     <div id="content">
       <router-view/>
@@ -62,8 +61,8 @@ export default {
   }
 
   #content {
-    padding-left: 15%;
-    padding-right: 15%;
+    padding-left: 10%;
+    padding-right: 10%;
     text-align: center;
   }
   * {
@@ -97,7 +96,7 @@ export default {
   nav {
     display: inline-block;
     margin: 0px auto 20px;
-    background-color: #5597b4;
+    background-color: #5892b5;
     box-shadow: 0 1px 1px #ccc;
     border-radius: 2px;
   }
@@ -112,7 +111,6 @@ export default {
     line-height: 1;
     text-transform: uppercase;
     background-color: transparent;
-
     -webkit-transition: background-color 0.25s;
     -moz-transition: background-color 0.25s;
     transition: background-color 0.25s;
@@ -130,13 +128,13 @@ export default {
   nav.configuration .configuration,
   nav.stats .stats,
   nav.contact .contact {
-    background-color: #e35885;
+    background-color: #92B558;
   }
 
   p {
     font-size: 22px;
     font-weight: bold;
-    color: #7d9098;
+    color: #92B558;
   }
 
   p b {
