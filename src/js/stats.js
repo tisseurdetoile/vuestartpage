@@ -165,7 +165,7 @@ var stats = {
     ret['tagsData3'] = tagsData3
     ret['shrData'] = shrData
     ret['scoreTags'] = scoreTags
-    ret['tags'] = tags  
+    ret['tags'] = tags
 
     return ret
   }
