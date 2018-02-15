@@ -10,8 +10,8 @@
 
     <ul id="lastsrch">
       <li v-for="(item, index) in lastWeeks.slice(0,10)" v-bind:index="index" v-bind:key="item.t">
-        {{ item.n }} (
-        <span class="tag" v-for="tag in item.p" v-bind:key="tag">{{ tag }}</span> )
+        <span class="engine">{{ item.n }}</span>
+        <span class="tag" v-for="tag in item.p" v-bind:key="tag">{{ tag }}</span>
         <a v-if="item.u !== undefined" :href="item.u">⬈</a>
       </li>
     </ul>
@@ -105,12 +105,16 @@ a {
 }
 
 #lastsrch li {
-  margin-bottom: 8px;
+  list-style-type: none;
 }
 
 #lastsrch a {
   text-decoration: none;
+  font-weight: bold;
+  font-size: 25px;
 }
+
+
 .box {
   width: 8px;
   height: 8px;
@@ -118,14 +122,48 @@ a {
   border: 1px solid rgba(0, 0, 0, .2);
 }
 
-#lastsrch span.tag {
-  padding: 1px 3px;
-  margin-left: 8px;
-  font-size: 1em;
-  white-space: normal;
-  border: 1px solid #e3edf3;
-  background: #e6eff3;
+#lastsrch span.engine {
+  position: relative;
+  display: inline-block;
+  max-width: 100px;
+  height: 22px;
+  line-height: 22px;
+  padding: 0 1em 0 1em;
+  background-color: #92B558;
+  border: 1px solid #aaa;
   border-radius: 3px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #333;
+  font-weight: bold;
+  font-size: 10px;
+  text-decoration: none;
+  -webkit-transition: .2s;
+  transition: .2s;
+  text-transform: uppercase;
+}
+
+#lastsrch span.tag {
+  position: relative;
+  display: inline-block;
+  max-width: 100px;
+  height: 22px;
+  line-height: 22px;
+  padding: 0 1em 0 1em;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #333;
+  font-weight: bold;
+  font-size: 10px;
+  text-decoration: none;
+  -webkit-transition: .2s;
+  transition: .2s;
+  text-transform: uppercase;
 }
 
 .tagcloud ul {
