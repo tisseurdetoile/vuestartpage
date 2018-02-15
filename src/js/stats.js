@@ -1,4 +1,38 @@
 var stats = {
+  chooseColor (arr) {
+    const colors = ['#6B5B95', '#ECDB54', '#E94B3C', '#6F9FD8', '#944743', '#DBB1CD', '#EC9787', '#00A591', '#6B5B95', '#6C4F3D', '#EADEDB', '#BC70A4', '#BFD641', '#2E4A62', '#B4B7BA', '#C0AB8E', '#F0EDE5', '#92B558', '#DC4C46', '#672E3B', '#F3D6E4', '#C48F65', '#223A5E', '#898E8C', '#005960', '#9C9A40', '#4F84C4', '#D2691E', '#578CA9', '#F6D155', '#004B8D', '#F2552C', '#95DEE3', '#EDCDC2', '#CE3175', '#5A7247', '#CFB095', '#4C6A92', '#92B6D5', '#838487', '#B93A32', '#AF9483', '#AD5D5D', '#006E51', '#D8AE47', '#9E4624', '#B76BA3', '#F7CAC9', '#F7786B', '#91A8D0', '#034F84', '#98DDDE', '#9896A4', '#B18F6A', '#DD4132', '#FAE03C', '#79C753']
+    let ret = {}
+    let flat = []
+    let obj = []
+    let ln = arr.length
+    let ni = 0
+    while (ln--) {
+      obj.push({'color': colors[ni], 'name': arr[ni]})
+      flat.push(colors[ni])
+      ni++
+    }
+    ret['flat'] = flat
+    ret['obj'] = obj
+
+    return ret
+  },
+  /**
+   * convertie une chaine en code hexa pour simplifier les code couleurs
+   * @param str
+   * @returns {string}
+   */
+  stringToColour (str) {
+    var hash = 0
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash)
+    }
+    var colour = '#'
+    for (let i = 0; i < 3; i++) {
+      var value = (hash >> (i * 8)) & 0xFF
+      colour += ('00' + value.toString(16)).substr(-2)
+    }
+    return colour
+  },
   /**
    * fonction qui permet de classer les entrée des nom dans le localstorage
    */
@@ -133,8 +167,23 @@ var stats = {
         tagsData[tag] = tagsData[tag] ? tagsData[tag] + 1 : 1
       }
     }
+    // START format search engine data for chart
+    var pieChartShrt = {}
+    pieChartShrt['series'] = []
+    pieChartShrt['labels'] = []
+    pieChartShrt['colors'] = []
+    for (let property in shrData) {
+      if (shrData.hasOwnProperty(property)) {
+        pieChartShrt['labels'].push(property)
+        // pieChartShrt['colors'].push(this.stringToColour(property))
+        pieChartShrt['series'].push(shrData[property])
+      }
+    }
+    pieChartShrt['colors'] = this.chooseColor(pieChartShrt['labels'])
+    // END format search engine data for chart
+
     // ff.
-    for (var property in tagsData) {
+    for (let property in tagsData) {
       if (tagsData.hasOwnProperty(property)) {
         if (tagsData[property] > 1) {
           tagsData2[property] = tagsData[property]
@@ -151,12 +200,23 @@ var stats = {
         scoreTags.push(parseInt(property1))
       }
     }
-
+    // START : tagcloud
+    let tagcloud = []
+    let lst2 = scoreTags.length
+    while (lst2--) {
+      let readScore = scoreTags[lst2]
+      let tagForScore = tagsData3[readScore]
+      let lng = tagForScore.length
+      while (lng--) {
+        tagcloud.push({'name': tagForScore[lng], 'score': readScore})
+      }
+    }
+    // END : tagcloud
     let lst = scoreTags.length
-
+    // reorganisation des tags
     while (lst--) {
       let readScore = scoreTags[lst]
-      tags.push(tagsData3[readScore])
+      tags.push({'name': tagsData3[readScore][0], 'score': readScore, 'all': tagsData3[readScore]})
     }
 
     // results.
@@ -166,6 +226,8 @@ var stats = {
     ret['shrData'] = shrData
     ret['scoreTags'] = scoreTags
     ret['tags'] = tags
+    ret['pieChartShrt'] = pieChartShrt
+    ret['tagcloud'] = tagcloud
 
     return ret
   }
