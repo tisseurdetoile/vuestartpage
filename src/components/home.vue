@@ -32,6 +32,10 @@
       </li>
     </ul>
     </div>
+    <template>
+      <peity :type="'bar'" :options="{'width': 150, 'height':150}" :data="getHistUsage"></peity>
+    </template>
+
   </div>
 </template>
 <script>
@@ -71,6 +75,9 @@ export default {
     },
     getTagCloud () {
       return this.tags.tagcloud
+    },
+    getHistUsage () {
+      return this.tags.retSearchByDate.srchByDateDaysHit.toString()
     }
   },
   methods: {

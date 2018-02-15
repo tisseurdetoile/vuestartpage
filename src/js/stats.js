@@ -144,6 +144,15 @@ var stats = {
     let days = sureDays + devMonday[new Date().getUTCDay() + 1] + 1
     return (this.lastNDays(days))
   },
+  getStrDate (datems) {
+    const date = new Date()
+    date.setTime(datems)
+    const strDate = 'Ymd'
+      .replace('Y', date.getFullYear())
+      .replace('m', (date.getMonth()) < 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      .replace('d', (date.getDate()) < 10 ? '0' + date.getDate() : date.getDate())
+    return strDate
+  },
   extractTag (arr) {
     let ret = {}
     var tagsData = {}
@@ -152,6 +161,7 @@ var stats = {
     var shrData = {}
     var scoreTags = []
     var tags = []
+    var srchByDate = {}
 
     let ln = arr.length
     while (ln--) {
@@ -159,6 +169,9 @@ var stats = {
 
       // traite les recherche par shrCut
       shrData[read.s] = shrData[read.s] ? shrData[read.s] + 1 : 1
+
+      // traite les jours
+      srchByDate[this.getStrDate(read.t)] = srchByDate[this.getStrDate(read.t)] ? srchByDate[this.getStrDate(read.t)] + 1 : 1
 
       // traite les tags.
       let lt = read.p.length
@@ -218,6 +231,17 @@ var stats = {
       let readScore = scoreTags[lst]
       tags.push({'name': tagsData3[readScore][0], 'score': readScore, 'all': tagsData3[readScore]})
     }
+    // START par jours
+    let srchByDateDays = []
+    let srchByDateDaysHit = []
+    for (let property in srchByDate) {
+      if (srchByDate.hasOwnProperty(property)) {
+        srchByDateDays.push(property)
+        srchByDateDaysHit.push(srchByDate[property])
+      }
+    }
+    let retSearchByDate = {'srchByDateDays': srchByDateDays, 'srchByDateDaysHit': srchByDateDaysHit}
+    // FIN par jours
 
     // results.
     ret['tagsData'] = tagsData
@@ -228,6 +252,7 @@ var stats = {
     ret['tags'] = tags
     ret['pieChartShrt'] = pieChartShrt
     ret['tagcloud'] = tagcloud
+    ret['retSearchByDate'] = retSearchByDate
 
     return ret
   }
