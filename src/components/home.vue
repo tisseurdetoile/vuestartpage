@@ -10,7 +10,7 @@
     <div id="pleft">
       <ul id="lastsrch">
         <h2>Dernières recherche</h2>
-        <li v-for="(item, index) in lastWeeks.slice(0,10)" v-bind:index="index" v-bind:key="item.t">
+        <li v-for="(item, index) in lastWeeks.slice(0,16)" v-bind:index="index" v-bind:key="item.t">
           <a v-if="item.u !== undefined" :href="item.u"><span class="engine">{{ item.n }}</span></a>
           <span class="tag" v-on:click="addTerms(tag)" v-for="tag in item.p" v-bind:key="tag">{{ tag }}</span>
         </li>
