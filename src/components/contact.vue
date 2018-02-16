@@ -1,22 +1,35 @@
 <template>
   <div class="contact">
-    <h1>Information</h1>
+    <h1>vueStartPage</h1>
     <h2>Présentation</h2>
-      <p>
-        Un simple outil pour simplifier et suivre ces de recherche sur le web.
+      <p class="text">
+        Une page statique, pour simplifier et suivre ses recherches sur le web.
+        Voir les moteurs que l'on utilise le plus, les mots les plus recherché.
+        Toutes informations sont stoqués dans le navigateur (LocalStorage)
+        <br />
         Fonctionne avec Firefox et Chrome.
       </p>
     <h2>Installation</h2>
-    <p>Bookmarker les liens ci dessous. puis editer les bookmarks
-      Changer 'azerty' en '%s' dans l'url et associé le bookmark à un mot clef (<i> pour firefox</i>) par exemple <i>/g</i>.
-      Toutes les fois ou vous taperer /g suivis d'un terme a recherché ans la barre d'adresse vous serez redirigé vers le moteur
-      de recherche et la recherche seras enregistré dans le "localStorage" de votre navigateur.
-    </p>
+    <br />
     <ul class="lines">
       <li v-for="(item, index) in currconfig.shrCut" v-bind:index="index" v-bind:key="item.shrt">
         <router-link :to="{ path: 'redirectMe', query: { s: item.shrt, q: 'azerty' }}">{{ item.name }}</router-link>
       </li>
     </ul>
+    <br />
+    <p class="text">
+      <ul>
+        <li>Bookmarker les liens ci dessus.</li>
+        <li>Editer les bookmarks.</li>
+        <li>Changer 'azerty' en '%s' dans l'url</li>
+        <li>Associé le bookmark à un mot clef</li>
+        <li>par exemple /g</li>
+      </ul>
+      <br />
+      Toutes les fois ou vous taperez /g suivis d'un terme a recherché dans la barre d'adresse
+      vous serez redirigé vers le moteur  de recherche et la recherche seras enregistré dans le "localStorage" de votre navigateur.
+    </p>
+
     <br />
     <h1>Contact</h1>
     <ul>
@@ -96,6 +109,7 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  text-align: right;
 }
 ul {
   list-style-type: none;
@@ -105,6 +119,42 @@ ul {
 ul.line {
   list-style-type: disc;
   padding: 0;
+}
+
+.contact {
+  margin-left: 35%;
+  width: 30%;
+}
+
+p.text {
+
+  color: #389dc1;
+  text-align: left;
+  align-content: center;
+  font-size: 16px;
+}
+
+ul.lines li a {
+  position: relative;
+  display: inline-block;
+  max-width: 100px;
+  height: 20px;
+  line-height: 20px;
+  margin-left: 5px;
+  padding: 0 1em 0 1em;
+  background-color: #fff;
+  border: 1px solid #389dc1;
+  border-radius: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #389dc1;
+  font-weight: bold;
+  font-size: 10px;
+  text-decoration: none;
+  -webkit-transition: .2s;
+  transition: .2s;
+  text-transform: uppercase;
 }
 
 li {
