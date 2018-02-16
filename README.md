@@ -1,7 +1,14 @@
 # vuestartpage
-A vue.js startPage
 
-> A Vue.js project
+Une page statique pour simplifier et suivre ses recherches sur le web.
+Voir les moteurs que l'on utilise le plus, les mots les plus recherchés.
+Toutes informations sont stoqués dans le navigateur (LocalStorage)
+   
+Fonctionne avec Firefox et Chrome.
+
+Demo [ici](http://app.tisseurdetoile.net/)
+
+> Powered by vue.js
 
 ## Build Setup
 
