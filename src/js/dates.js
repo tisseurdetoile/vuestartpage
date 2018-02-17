@@ -1,4 +1,9 @@
 var dates = {
+  /**
+   * Retourne le numéro de la semaine.
+   * @param prefix prefix à ajouter à la chaine de la semaine.
+   * @returns {string}
+   */
   getWeek (prefix) {
     let date = new Date()
     date.setHours(0, 0, 0, 0)

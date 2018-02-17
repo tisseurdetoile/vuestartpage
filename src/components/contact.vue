@@ -95,10 +95,8 @@ export default {
   created: function () {
     this.$parent.changeActive('contact')
   },
-  name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       currconfig: Configuration.fetch()
     }
   }
