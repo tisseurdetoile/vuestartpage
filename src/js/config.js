@@ -42,6 +42,18 @@ var config = {
     return null
   },
   /**
+   * renvoi vrai si on doit stocker les information.
+   */
+  doIStat () {
+    return this.current.stat
+  },
+  /**
+   * renvoi vrai si on doit faire la redirection
+   */
+  doIRedirect () {
+    return !this.current.noredirect
+  },
+  /**
    * retourne la configuration associé au raccourcis.
    * @param shrt le raccourcis.
    * @returns {*} la configuration ou null.
@@ -54,7 +66,6 @@ var config = {
     return null
   },
   fetch () {
-    console.log('fetch')
     let read = localStorage.getItem('CONFIG')
     if (read == null) {
       console.log('no save')
@@ -88,7 +99,7 @@ var config = {
    * Export les données sous forme de fichier.
    */
   exportData () {
-    const fileName = 'export.json'
+    const fileName = 'config.json'
     let element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.current)))
     element.setAttribute('download', fileName)

@@ -60,10 +60,8 @@ export default {
   components: {
     Peity
   },
-  name: 'Home',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       lastWeeks: stats.getLastWeeks(),
       searchStr: '',
       tags: stats.extractTag(stats.getLastWeeks())

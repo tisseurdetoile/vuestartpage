@@ -18,12 +18,17 @@ var Redirect = {
       console.log(readConfig)
       let url = readConfig.url.replace('::%s::', query)
       if (url != null) {
-        stats.putStat(query, readConfig, url)
+        if (Config.doIStat()) {
+          stats.putStat(query, readConfig, url)
+        }
         return url
       }
     }
 
     return null
+  },
+  doIredirect () {
+    return Config.doIRedirect()
   }
 }
 export default Redirect

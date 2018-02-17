@@ -1,12 +1,6 @@
 <template>
   <form>
     <p>
-      Debug :
-      <input type="checkbox" v-model="currconfig.debug">
-      {{currconfig.debug ? "oui" : "non"}}
-    </p>
-
-    <p>
       Stat :
       <input type="checkbox" v-model="currconfig.stat">
       {{currconfig.stat ? "oui" : "non"}}

@@ -37,16 +37,6 @@ export default {
       this.active = item
     }
   }
-  /*,
-  watch: {
-    config: {
-      handler: function (config) {
-        console.log('config.handler.Config.save')
-        Config.save(config)
-      }
-    }
-  }
-  */
 }
 </script>
 

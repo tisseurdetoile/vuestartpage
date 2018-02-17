@@ -1,5 +1,9 @@
 <template>
-  <h1>Redirection</h1>
+  <div id="redirection">
+    <h1 v-if="redirect">Redirection en cours ...</h1>
+    <h1 v-if="!redirect">Redirection</h1>
+    <a v-if="!redirect" v-bind:href="redirectUrl">{{ redirectUrl }}</a>
+  </div>
 </template>
 
 <script>
@@ -11,12 +15,16 @@ export default {
     let url = Redirect.getUrl(this.querystr, this.shrtcut)
     if (url != null) {
       console.log(url)
-      window.location.href = url
+      if (this.redirect) {
+        window.location.href = url
+      }
+      this.redirectUrl = url
     }
   },
-  data () {
+  data: function () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      redirect: Redirect.doIredirect(),
+      redirectUrl: ''
     }
   }
 }
