@@ -140,8 +140,9 @@ var stats = {
    */
   getLastWeeks (num = 5) {
     let devMonday = [6, 0, 1, 2, 3, 4, 5]
+    let today = new Date()
     let sureDays = (num - 1) * 7
-    let days = sureDays + devMonday[new Date().getUTCDay() + 1] + 1
+    let days = sureDays + devMonday[today.getUTCDay()] + 1
     return (this.lastNDays(days))
   },
   getStrDate (datems) {
