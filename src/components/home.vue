@@ -12,7 +12,8 @@
         <h2>Dernières recherche</h2>
         <li v-for="(item, index) in lastWeeks.slice(0,16)" v-bind:index="index" v-bind:key="item.t">
           <a v-if="item.u !== undefined" :href="item.u"><span class="engine">{{ item.n }}</span></a>
-          <span class="tag" v-on:click="addTerms(tag)" v-for="tag in item.p" v-bind:key="tag">{{ tag }}</span>
+          <span class="tag" v-on:click="addTerms(tag)" v-for="tag in item.p.slice(0,4)" v-bind:key="tag">{{ tag }}</span>
+          <span v-if="item.p.length > 4" :title="item.p.slice(4,item.p.length).toString()" class="tag" >...</span>
         </li>
       </ul>
     </div>
